@@ -1,0 +1,93 @@
+<style>body{
+  text-align: center;
+  color: white;
+  background-color: black;
+}
+#title{
+  font-size:25px;
+}
+button{
+  width: 200px;
+  height: 50px;
+  margin: 3px;
+  
+}</style>
+<body>
+<br>
+    <h1 visibility: hidden><time>00:00:00.000</time></h1>
+    <p id="title">Height Calculator</p>
+    <button id="start">Dropped</button><br>
+    <button id="stop">Landed</button><br>
+    <button id="clear">Clear</button><br>
+    <p class="milliDisplay">Press Clear</p>
+    <p class="formulaAnswer">The timer will start as soon as you press clear</p> </body>
+<script type=text/javascript>    
+// Formula is 16(t)^2
+
+var h1 = document.getElementsByTagName('h1')[0],
+    start = document.getElementById('start'),
+    stop = document.getElementById('stop'),
+    clear = document.getElementById('clear'),
+    milli = 0, seconds = 0, minutes = 0, hours = 0,
+    t;
+const milliSpan = document.querySelector(".milliDisplay")
+const formulaDis = document.querySelector(".formulaAnswer")
+let ms = 0;
+
+function add() {
+    milli += 10;
+    if (milli >= 1000) {
+        milli = 0;
+        seconds++;
+        if (seconds >= 60) {
+            seconds = 0;
+            minutes++;
+            if (minutes >= 60) {
+                minutes = 0;
+                hours++;
+            }
+        }
+    }
+    
+    h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds) + "." + (milli > 90 ? milli : "0" + milli);
+
+    timer();
+}
+function timer() {
+    t = setTimeout(add, 10);
+}
+timer();
+
+milliseconds = () => {
+  ms = (hours * 3600000) + (minutes * 60000) + (seconds * 1000) + (milli * 1)
+  milliSpan.innerHTML = `${ms / 1000} seconds`
+}
+
+calculations = () => {
+  const msToS = ms / 1000
+  const msCalc = Math.pow(msToS, 2)
+  const calc = 16 * msCalc/3.281
+  formulaDis.textContent = calc.toFixed(3)+" m"
+}
+
+/* Start button */
+start.onclick = function() {
+    if(!t) timer();
+}
+
+/* Stop button */
+stop.onclick = function() {
+    clearTimeout(t);
+    t = null;
+    milliseconds()
+    calculations()
+}
+
+/* Clear button */
+clear.onclick = function() {
+    h1.textContent = "00:00:00.000";
+    milli = 0; seconds = 0; minutes = 0; hours = 0;
+    milliSpan.textContent = `0 seconds`
+    formulaDis.textContent = `0 m`
+}
+</script>
