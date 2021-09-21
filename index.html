@@ -73,12 +73,12 @@ function timer() {
 }
 
 milliseconds = () => {
-  ms = (hours * 3600000) + (minutes * 60000) + (seconds * 1000) + (milli * 1)
-  milliSpan.innerHTML = `${ms / 1000} seconds`
+  ms = ((hours * 3600000) + (minutes * 60000) + (seconds * 1000) + (milli * 1))/1000
+  milliSpan.innerHTML = ms.toFixed(3) +" seconds"
 }
 
 calculations = () => {
-  const msToS = ms / 1000
+  const msToS = ms
   const msCalc = Math.pow(msToS, 2)
   const calc = (9.807/2) * msCalc*3.281
   formulaDis.textContent = calc.toFixed(3)+" ft"
