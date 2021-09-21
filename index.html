@@ -26,7 +26,7 @@ button{
 <br>
     <h1><time>00:00:00.000</time></h1>
     <p id="title">Height Calculator</p>
-    <button id="start">Dropped</button><br>
+    <button id="start">Start</button><br>
     <button id="stop">Landed</button><br>
     <button id="clear">Clear</button><br>
     <p class="milliDisplay">0 Seconds</p>
@@ -81,15 +81,17 @@ calculations = () => {
 
 /* Start button */
 start.onclick = function() {
-    if(!t) timer();
-}
-
-/* Stop button */
-stop.onclick = function() {
+    if(!t) {
+      timer();
+      start.innerHTML = "Stop";
+    }
+  else {
     clearTimeout(t);
     t = null;
-    milliseconds()
-    calculations()
+    miliseconds();
+    calculations();
+    start.innerHTML = "Start";
+  }
 }
 
 /* Clear button */
