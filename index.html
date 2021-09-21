@@ -14,13 +14,13 @@ button{
 }</style>
 <body>
 <br>
-    <h1 visibility: hidden><time>00:00:00.000</time></h1>
+    <h1 visibility: show><time>00:00:00.000</time></h1>
     <p id="title">Height Calculator</p>
     <button id="start">Dropped</button><br>
     <button id="stop">Landed</button><br>
     <button id="clear">Clear</button><br>
     <p class="milliDisplay">0 Seconds</p>
-    <p class="formulaAnswer">0 m</p> </body>
+    <p class="formulaAnswer">0 ft</p> </body>
 <script type=text/javascript>    
 // Formula is 16(t)^2
 
@@ -65,7 +65,7 @@ milliseconds = () => {
 calculations = () => {
   const msToS = ms / 1000
   const msCalc = Math.pow(msToS, 2)
-  const calc = 16 * msCalc/3.281
+  const calc = 16 * msCalc
   formulaDis.textContent = calc.toFixed(3)+" m"
 }
 
@@ -86,7 +86,7 @@ stop.onclick = function() {
 clear.onclick = function() {
     h1.textContent = "00:00:00.000";
     milli = 0; seconds = 0; minutes = 0; hours = 0;
-    milliSpan.textContent = `0 seconds`
-    formulaDis.textContent = `0 m`
+    milliSpan.textContent = `0 Seconds`
+    formulaDis.textContent = `0 ft`
 }
 </script>
