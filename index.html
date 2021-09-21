@@ -82,6 +82,10 @@ calculations = () => {
 /* Start button */
 start.onclick = function() {
     if(!t) {
+      h1.textContent = "00:00:00.000";
+      milli = 0; seconds = 0; minutes = 0; hours = 0;
+      milliSpan.textContent = `0 Seconds`
+      formulaDis.textContent = `0 ft`
       timer();
       start.innerHTML = "Stop";
     }
