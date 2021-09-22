@@ -23,7 +23,6 @@ button{
   border-radius: 5%;
   border-width: 10%;
   border-color: white;
-  
 }</style>
 <head>
   <title>Height Calculator</title>
@@ -45,84 +44,46 @@ button{
 </head>
 <body>
 <br>
-    <h1><time>00:00:00.000</time></h1>
+    <body>
+<br>
     <p id="title">Height Calculator</p>
-    <button id="start">Start</button><br>
+  <button id="start">Start</button>
     
-    <p class="milliDisplay">0 Seconds</p>
-    <p class="formulaAnswer">0 ft</p> </body>
-<script type=text/javascript>    
-// Formula is 16(t)^2
+    <p id="milliDisplay">0 seconds</p>
+    <p id="formulaAnswer">0 ft</p> </body>
+  <script type=text/javascript>    
+const start = document.querySelector("#start")
+const stop = document.querySelector("#stop")
+const timeSec = document.getElementById("milliDisplay")
+const answer = document.getElementById("formulaAnswer")
 
-var h1 = document.getElementsByTagName('h1')[0],
-    start = document.getElementById('start'),
-    stop = document.getElementById('stop'),
-    clear = document.getElementById('clear'),
-    milli = 0, seconds = 0, minutes = 0, hours = 0,
-    t;
-const milliSpan = document.querySelector(".milliDisplay")
-const formulaDis = document.querySelector(".formulaAnswer")
-let ms = 0;
+let timeAtStart = null
+let timeAtEnd = null
 
-function add() {
-    milli += 10.57;
-    if (milli >= 1000) {
-        milli = 0;
-        seconds++;
-        if (seconds >= 60) {
-            seconds = 0;
-            minutes++;
-            if (minutes >= 60) {
-                minutes = 0;
-                hours++;
-            }
-        }
-    }
-    
-    h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds) + "." + (milli > 90 ? milli : "0" + milli);
 
-    timer();
-}
-function timer() {
-    t = setTimeout(add, 10);
+function timeCalc() {
+  const diffTime = timeAtEnd - timeAtStart
+  console.log(timeAtStart)
+  console.log(timeAtEnd)
+  console.log(diffTime)
+  const calc = 16.0883835 * diffTime * diffTime / 1000000
+  timeSec.innerHTML = `${diffTime / 1000} seconds`
+  answer.innerHTML = `${calc.toFixed(3)} ft`
 }
 
-milliseconds = () => {
-  ms = ((hours * 3600000) + (minutes * 60000) + (seconds * 1000) + (milli * 1))/1000
-  milliSpan.innerHTML = ms.toFixed(3) +" seconds"
-}
-
-calculations = () => {
-  const msToS = ms
-  const msCalc = Math.pow(msToS, 2)
-  const calc = (9.807/2) * msCalc*3.281
-  formulaDis.textContent = calc.toFixed(3)+" ft"
-}
-
-/* Start button */
-start.onclick = function() {
-    if(!t) {
-      h1.textContent = "00:00:00.000";
-      milli = 0; seconds = 0; minutes = 0; hours = 0;
-      milliSpan.textContent = `- Seconds`
-      formulaDis.textContent = `- ft`
-      timer();
-      start.innerHTML = "Stop";
-    }
-  else {
-    clearTimeout(t);
-    t = null;
-    milliseconds();
-    calculations();
-    start.innerHTML = "Restart";
+start.addEventListener("click", () => {
+  if (timeAtStart === null) {
+  timeAtStart = Date.now()
+    timeSec.innerHTML = "- seconds"
+  answer.innerHTML = "- ft"
+    start.innerHTML = "Stop"
+  } else {
+      timeAtEnd = Date.now()
+  timeCalc()
+    timeAtStart = null
+        start.innerHTML = "Restart"
   }
-}
 
-/* Clear button */
-clear.onclick = function() {
-    h1.textContent = "00:00:00.000";
-    milli = 0; seconds = 0; minutes = 0; hours = 0;
-    milliSpan.textContent = `0 Seconds`
-    formulaDis.textContent = `0 ft`
-}
+  
+})
 </script>
